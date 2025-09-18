@@ -74,7 +74,7 @@ namespace AgendaMedica.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
+            [Required(ErrorMessage = "Digite um e-mail.")]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -83,9 +83,9 @@ namespace AgendaMedica.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-            [DataType(DataType.Password)]
+            [Required(ErrorMessage = "Digite um e-mail.")]
+            [StringLength(100, ErrorMessage = "A senha deve conter, no minimo 6 caractere, contendo letras Maiusculas, letras minusculas, números e caracteres especiais.", MinimumLength = 6)]
+            [DataType(DataType.Password, ErrorMessage = "O formato da senha é invalido")]
             [Display(Name = "Password")]
             public string Password { get; set; }
 
@@ -95,7 +95,7 @@ namespace AgendaMedica.Areas.Identity.Pages.Account
             /// </summary>
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = "A senha e a confirmção da senha não coincidem.")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -120,7 +120,7 @@ namespace AgendaMedica.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("Uma nova conta de usuario foi criado.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -131,8 +131,8 @@ namespace AgendaMedica.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    await _emailSender.SendEmailAsync(Input.Email, "Confirmar seu email",
+                        $"Por favor confirme sua conta  <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>cliclando aqui</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
