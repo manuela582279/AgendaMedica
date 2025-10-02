@@ -22,33 +22,33 @@ body {
 }
 
 .text-light {
-    color: lightsteelblue !important
+    color: #242424 !important
 }
 
 .bg-dark {
-    background-color: silver !important
+    background-color: #565454 !important
 }
 
 .bg-black {
-    background-color: #808080 !important
+    background-color: #565454 !important
 }
 
 .table-black, table-striped {
-    background-color: #373535 !important
+    background-color: #676767 !important
 }
 
 
 .table > :not(caption) > * > * {
-    background-color: #ff0000;
+    background-color: #565454;
 }
 
 .table-striped > tbody > tr:nth-of-type(odd) > * {
-    --bs-table-bg-type: #808080
+    --bs-table-bg-type: #565454
 }
 
 */
 
 .table-striped > tbody > tr:nth-of-type(odd) > * {
-    --bs-table-color-type: #808080;
-    --bs-table-bg-type: #373535;
+    --bs-table-color-type: #242424;
+    --bs-table-bg-type: #242424;
 }
